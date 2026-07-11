@@ -1,0 +1,1025 @@
+/* ============================================
+   韫川科技 · 开业盛典H5邀请函
+   新中式商务风格
+   ============================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --red: #C41E3A;
+  --red-dark: #9B1830;
+  --red-light: #E8344F;
+  --gold: #D4AF37;
+  --gold-light: #E8D5A3;
+  --gold-bright: #F0D060;
+  --ink: #2C2C2C;
+  --ink-dark: #1a1a1a;
+  --ink-deep: #111111;
+  --warm-white: #F5F0E8;
+  --warm-white-dim: rgba(245, 240, 232, 0.7);
+  --text-dim: rgba(245, 240, 232, 0.5);
+  --font-brush: 'Ma Shan Zheng', cursive;
+  --font-serif: 'Noto Serif SC', serif;
+  --font-sans: 'Noto Sans SC', sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-mont: 'Montserrat', sans-serif;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--ink-deep);
+  color: var(--warm-white);
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Water Canvas Background ---------- */
+#water-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* ---------- Music Button ---------- */
+.music-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.music-btn:hover, .music-btn:active {
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+
+.music-icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.music-bar {
+  display: block;
+  width: 2.5px;
+  background: var(--gold);
+  border-radius: 1px;
+  height: 4px;
+  transition: height 0.2s ease;
+}
+
+.music-btn.playing .music-bar {
+  animation: musicPulse 0.8s ease-in-out infinite alternate;
+}
+
+.music-btn.playing .music-bar:nth-child(1) { animation-delay: 0s; }
+.music-btn.playing .music-bar:nth-child(2) { animation-delay: 0.2s; }
+.music-btn.playing .music-bar:nth-child(3) { animation-delay: 0.4s; }
+.music-btn.playing .music-bar:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes musicPulse {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+/* ---------- Loader ---------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--ink-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loader-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  animation: loaderLogoIn 1.5s ease-out forwards;
+}
+
+.loader-ink {
+  position: absolute;
+  bottom: -20px;
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: loaderInk 1.5s ease-out forwards;
+  border-radius: 2px;
+}
+
+@keyframes loaderLogoIn {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loaderInk {
+  0% { width: 0; opacity: 0; }
+  50% { opacity: 1; }
+  100% { width: 200px; opacity: 1; }
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.main-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.main-content.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease 0.3s;
+}
+
+/* ---------- Section Base ---------- */
+.section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.section-inner {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  z-index: 2;
+}
+
+/* ---------- Animation Items ---------- */
+.anim-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.anim-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Section Header ---------- */
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  display: block;
+  font-family: var(--font-mont);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--warm-white);
+  letter-spacing: 4px;
+}
+
+.section-subtitle {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--gold-light);
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+.header-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 16px auto 0;
+}
+
+/* =============================================
+   第一屏 · 首屏
+   ============================================= */
+.hero-section {
+  background: radial-gradient(ellipse at 50% 80%, rgba(196, 30, 58, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+              var(--ink-deep);
+}
+
+.hero-glow {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 50%;
+  background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.15) 0%, rgba(212, 175, 55, 0.06) 40%, transparent 70%);
+  animation: heroGlow 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes heroGlow {
+  0% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* LOGO */
+.hero-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.hero-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+  animation: heroLogoFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.logo-gold-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-top: 16px;
+}
+
+/* 主标题 */
+.hero-title {
+  margin-bottom: 16px;
+}
+
+.title-main {
+  font-family: var(--font-brush);
+  font-size: 36px;
+  color: transparent;
+  background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 40%, var(--gold-light) 70%, var(--gold) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  letter-spacing: 4px;
+  line-height: 1.4;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
+}
+
+/* 副标题 */
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--warm-white-dim);
+  letter-spacing: 3px;
+  margin-bottom: 32px;
+}
+
+/* 时间地址 */
+.hero-info {
+  margin-bottom: 20px;
+}
+
+.hero-datetime {
+  font-family: var(--font-mont);
+  font-size: 13px;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.hero-address {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+
+/* 印章 */
+.hero-stamp {
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  z-index: 3;
+}
+
+.stamp-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  border: 1.5px solid var(--red);
+  border-radius: 3px;
+  background: rgba(196, 30, 58, 0.1);
+}
+
+.stamp-box span {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--red);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* 滚动提示 */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+  transform: rotate(45deg);
+  animation: scrollBounce 2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.6; }
+  50% { transform: rotate(45deg) translateY(6px); opacity: 1; }
+}
+
+/* =============================================
+   第二屏 · 企业介绍
+   ============================================= */
+.about-section {
+  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink-dark) 50%, var(--ink-deep) 100%);
+}
+
+.about-quote {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--gold);
+  text-align: center;
+  letter-spacing: 4px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.about-quote::before,
+.about-quote::after {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 0.5px;
+  background: var(--gold);
+  vertical-align: middle;
+  margin: 0 12px;
+  opacity: 0.5;
+}
+
+.about-gold-bar {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 60%;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
+.about-body p {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--warm-white-dim);
+  margin-bottom: 20px;
+  text-indent: 2em;
+  letter-spacing: 0.5px;
+}
+
+.about-ink-mountain {
+  position: absolute;
+  right: -20px;
+  bottom: 40px;
+  width: 120px;
+  height: 200px;
+  background: radial-gradient(ellipse at bottom, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* =============================================
+   第三屏 · 韫川文化
+   ============================================= */
+.culture-section {
+  background: linear-gradient(180deg, var(--ink-deep) 0%, rgba(44, 44, 44, 0.6) 50%, var(--ink-deep) 100%);
+}
+
+.culture-intro {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 2;
+  color: var(--warm-white-dim);
+  text-align: center;
+  margin-bottom: 36px;
+  padding: 0 8px;
+  letter-spacing: 0.5px;
+}
+
+/* 双栏 */
+.culture-columns {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.culture-col {
+  flex: 1;
+  text-align: center;
+  padding: 24px 12px;
+  border: 0.5px solid rgba(212, 175, 55, 0.15);
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.02);
+  position: relative;
+}
+
+/* 文化屏专属动效 - 韫从左滑入，川从右滑入 */
+.culture-yun {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.culture-chuan {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.culture-yun.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.culture-chuan.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.culture-char-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.culture-char {
+  font-family: var(--font-brush);
+  font-size: 56px;
+  color: transparent;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+  background-clip: text;
+  -webkit-background-clip: text;
+  line-height: 1.2;
+  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.25));
+}
+
+.culture-seal {
+  position: absolute;
+  bottom: -4px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--red);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  color: var(--red);
+  background: rgba(196, 30, 58, 0.08);
+}
+
+.culture-col h3 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  letter-spacing: 4px;
+}
+
+.culture-source {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.culture-col p:last-child {
+  font-size: 13px;
+  color: var(--warm-white-dim);
+  line-height: 1.8;
+}
+
+/* 底部总结 */
+.culture-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.summary-item span {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border: 0.5px solid rgba(212, 175, 55, 0.2);
+  border-radius: 2px;
+}
+
+.summary-dot {
+  color: var(--gold);
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+/* =============================================
+   第四屏 · 诚挚邀请
+   ============================================= */
+.invite-section {
+  background: radial-gradient(ellipse at 50% 50%, rgba(196, 30, 58, 0.06) 0%, transparent 60%),
+              var(--ink-deep);
+}
+
+.invite-card {
+  position: relative;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+/* 金线边框 */
+.card-border {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+
+.corner.tl { top: 0; left: 0; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner.tr { top: 0; right: 0; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+.corner.bl { bottom: 0; left: 0; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner.br { bottom: 0; right: 0; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
+.invite-quote {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.invite-body p {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--warm-white-dim);
+  margin-bottom: 16px;
+  text-indent: 2em;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+/* 邀请函印章 */
+.invite-stamp {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.stamp-circle {
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196, 30, 58, 0.08);
+  transform: rotate(-15deg);
+}
+
+.stamp-circle span {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--red);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* =============================================
+   第五屏 · 开业仪程
+   ============================================= */
+.schedule-section {
+  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink-dark) 50%, var(--ink-deep) 100%);
+}
+
+/* 时间轴 */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--gold), var(--gold), transparent);
+  opacity: 0.4;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid var(--red);
+  background: var(--ink-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot-inner {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.timeline-card {
+  padding: 16px 20px;
+  border: 0.5px solid rgba(212, 175, 55, 0.12);
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.02);
+}
+
+.timeline-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.timeline-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.timeline-time {
+  font-family: var(--font-mont);
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.timeline-card h3 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--warm-white);
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+
+.timeline-card p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* =============================================
+   第六屏 · 尾页
+   ============================================= */
+.footer-section {
+  background: radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+              var(--ink-deep);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.footer-section .section-inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo-wrap {
+  margin-bottom: 16px;
+}
+
+.footer-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.footer-slogan {
+  font-family: var(--font-brush);
+  font-size: 22px;
+  color: var(--gold-light);
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.footer-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-bottom: 28px;
+}
+
+/* 联系信息 */
+.footer-info {
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.info-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.info-item p,
+.info-item a {
+  font-size: 13px;
+  color: var(--warm-white-dim);
+  line-height: 1.7;
+}
+
+.phone-link {
+  color: var(--gold-light) !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  transition: border-color 0.3s;
+}
+
+.phone-link:hover {
+  border-color: var(--gold);
+}
+
+/* 按钮组 */
+.footer-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.nav-btn,
+.call-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.nav-btn:hover, .nav-btn:active,
+.call-btn:hover, .call-btn:active {
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.nav-btn svg,
+.call-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 恭候莅临印章 */
+.footer-stamp {
+  margin-bottom: 24px;
+}
+
+.stamp-circle-lg {
+  width: 72px;
+  height: 72px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196, 30, 58, 0.06);
+  transform: rotate(-10deg);
+  padding: 8px;
+  gap: 2px;
+}
+
+.stamp-circle-lg span {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--red);
+  font-weight: 700;
+  width: 16px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* =============================================
+   响应式适配
+   ============================================= */
+@media (max-width: 375px) {
+  .title-main {
+    font-size: 30px;
+  }
+
+  .hero-logo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .culture-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .culture-char {
+    font-size: 44px;
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .nav-btn,
+  .call-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .summary-item span {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-inner {
+    max-width: 680px;
+    padding: 100px 40px;
+  }
+
+  .title-main {
+    font-size: 44px;
+  }
+
+  .hero-logo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+
+  .about-body p {
+    font-size: 15px;
+  }
+
+  .culture-intro {
+    font-size: 15px;
+  }
+
+  .invite-body p {
+    font-size: 15px;
+  }
+}

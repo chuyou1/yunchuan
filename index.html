@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>韫川科技 · 开业盛典邀请函</title>
+  <meta name="description" content="深圳韫川信息科技有限公司开业盛典诚邀您的莅临">
+  <meta property="og:title" content="韫川科技 · 开业盛典邀请函">
+  <meta property="og:description" content="驭势而进 · 全域共生 | 2026年7月16日 诚邀莅临">
+  <meta property="og:image" content="public/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.cn">
+  <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+  <link href="https://fonts.googleapis.cn/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- 水纹背景画布 -->
+  <canvas id="water-canvas"></canvas>
+
+  <!-- 音乐控制按钮 -->
+  <button class="music-btn" id="music-btn" aria-label="背景音乐开关">
+    <div class="music-icon">
+      <span class="music-bar"></span>
+      <span class="music-bar"></span>
+      <span class="music-bar"></span>
+      <span class="music-bar"></span>
+    </div>
+  </button>
+
+  <!-- 加载动画 -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <img src="public/logo.png" alt="韫川科技" class="loader-logo">
+      <div class="loader-ink"></div>
+    </div>
+  </div>
+
+  <!-- 主内容 -->
+  <main id="main-content" class="main-content hidden">
+
+    <!-- ====== 第一屏 · 首屏 ====== -->
+    <section class="section hero-section" id="hero">
+      <!-- 红金光效 -->
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <!-- LOGO -->
+        <div class="hero-logo-wrap anim-item" data-delay="300">
+          <img src="public/logo.png" alt="韫川科技" class="hero-logo">
+          <div class="logo-gold-line"></div>
+        </div>
+        <!-- 主标题 -->
+        <h1 class="hero-title anim-item" data-delay="600">
+          <span class="title-main">驭势而进 · 全域共生</span>
+        </h1>
+        <!-- 副标题 -->
+        <p class="hero-subtitle anim-item" data-delay="900">深圳韫川信息科技有限公司开业盛典</p>
+        <!-- 时间地址 -->
+        <div class="hero-info anim-item" data-delay="1200">
+          <p class="hero-datetime">2026年7月16日 09:18</p>
+          <p class="hero-address">深圳市前海深港合作区南山街道听海大道5059号<br>前海鸿荣源中心A座1001E</p>
+        </div>
+      </div>
+      <!-- 右下角印章 -->
+      <div class="hero-stamp anim-item" data-delay="1500">
+        <div class="stamp-box">
+          <span>诚</span><span>挚</span><span>邀</span><span>请</span>
+        </div>
+      </div>
+      <!-- 滚动提示 -->
+      <div class="scroll-hint anim-item" data-delay="1800">
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ====== 第二屏 · 企业介绍 ====== -->
+    <section class="section about-section" id="about">
+      <div class="section-inner">
+        <!-- 栏目标题 -->
+        <div class="section-header anim-item">
+          <span class="section-tag">About US</span>
+          <h2 class="section-title">企业介绍</h2>
+          <div class="header-line"></div>
+        </div>
+        <!-- 引语 -->
+        <p class="about-quote anim-item" data-delay="100">驭势而进 · 全域共生</p>
+        <!-- 左侧金线 -->
+        <div class="about-gold-bar"></div>
+        <!-- 正文 -->
+        <div class="about-body">
+          <p class="anim-item" data-delay="200">
+            深圳韫川信息科技有限公司，本地生活 AI 全域数字化服务商，持有抖音、支付宝、微信三大平台官方资质，助力实体商家数字化经营。
+          </p>
+          <p class="anim-item" data-delay="350">
+            打通三端流量运营链路，构建公域引流至私域复购完整商业闭环，主营两大核心业务：视频号 POI 团购搭建运营、全平台全域代运营托管。
+          </p>
+          <p class="anim-item" data-delay="500">
+            服务千余家实体商户，单月最高 0.3 亿 GMV，覆盖餐饮、美业、文旅、商超全赛道，配套 AI 营销、门店小程序、会员裂变全套落地工具。
+          </p>
+        </div>
+        <!-- 右侧水墨山川装饰 -->
+        <div class="about-ink-mountain"></div>
+      </div>
+    </section>
+
+    <!-- ====== 第三屏 · 韫川文化 ====== -->
+    <section class="section culture-section" id="culture">
+      <div class="section-inner">
+        <!-- 栏目标题 -->
+        <div class="section-header anim-item">
+          <h2 class="section-title">韫川之名</h2>
+          <p class="section-subtitle">藏器待时，川流不息</p>
+          <div class="header-line"></div>
+        </div>
+        <!-- 开篇总起 -->
+        <p class="culture-intro anim-item" data-delay="100">
+          "韫川"二字，藏东方智慧，蕴企业格局。韫为内藏，川为外展；一动一静，一收一放，是厚积薄发的经营之道，亦是奔腾不息的发展之势。
+        </p>
+        <!-- 韫/川 双栏 -->
+        <div class="culture-columns">
+          <div class="culture-col culture-yun anim-item" data-delay="300">
+            <div class="culture-char-wrap">
+              <span class="culture-char">韫</span>
+              <div class="culture-seal">藏</div>
+            </div>
+            <h3>韫 · 藏</h3>
+            <p class="culture-source">取自《论语·子罕》"椟而藏"</p>
+            <p>寓意厚积薄发、内敛沉淀，待时而动。以深厚积累为根基，于时机成熟时一展所长。</p>
+          </div>
+          <div class="culture-col culture-chuan anim-item" data-delay="400">
+            <div class="culture-char-wrap">
+              <span class="culture-char">川</span>
+              <div class="culture-seal">流</div>
+            </div>
+            <h3>川 · 流</h3>
+            <p class="culture-source">取江河奔涌之意</p>
+            <p>象征汇聚众流、奔腾不息，生命力源远流长。以开放之姿纳百川，以进取之势向未来。</p>
+          </div>
+        </div>
+        <!-- 底部五句总结 -->
+        <div class="culture-summary anim-item" data-delay="600">
+          <div class="summary-item"><span>动静平衡</span></div>
+          <div class="summary-dot">·</div>
+          <div class="summary-item"><span>内外兼修</span></div>
+          <div class="summary-dot">·</div>
+          <div class="summary-item"><span>时机智慧</span></div>
+          <div class="summary-dot">·</div>
+          <div class="summary-item"><span>视野胸怀</span></div>
+          <div class="summary-dot">·</div>
+          <div class="summary-item"><span>持续发展</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 第四屏 · 诚挚邀请 ====== -->
+    <section class="section invite-section" id="invite">
+      <div class="section-inner">
+        <!-- 栏目标题 -->
+        <div class="section-header anim-item">
+          <span class="section-tag">Sincere Invitation</span>
+          <h2 class="section-title">诚挚邀请</h2>
+          <div class="header-line"></div>
+        </div>
+        <!-- 邀请卡 -->
+        <div class="invite-card anim-item" data-delay="200">
+          <!-- 金线边框 -->
+          <div class="card-border">
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
+          </div>
+          <!-- 引语 -->
+          <p class="invite-quote anim-item" data-delay="300">驭势而进 · 全域共生</p>
+          <!-- 正文 -->
+          <div class="invite-body anim-item" data-delay="400">
+            <p>
+              衷心感谢您一直以来的关注与支持！为共探本地生活 AI 数字化全新机遇、共享全域经营蓝海红利，诚邀您莅临我司开业盛典。
+            </p>
+            <p>
+              现场将深度拆解三平台数字化运营方案、分享合伙人共赢模式、交流实体商家落地实战经验，期待与您共启新程、合作共赢！
+            </p>
+          </div>
+          <!-- 邀请函印章 -->
+          <div class="invite-stamp anim-item" data-delay="600">
+            <div class="stamp-circle">
+              <span>邀</span>
+              <span>请</span>
+              <span>函</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 第五屏 · 开业仪程 ====== -->
+    <section class="section schedule-section" id="schedule">
+      <div class="section-inner">
+        <!-- 栏目标题 -->
+        <div class="section-header anim-item">
+          <h2 class="section-title">开业仪程</h2>
+          <div class="header-line"></div>
+        </div>
+        <!-- 时间轴 -->
+        <div class="timeline">
+          <div class="timeline-line"></div>
+          <div class="timeline-item anim-item" data-delay="100">
+            <div class="timeline-dot">
+              <div class="dot-inner"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 4c-2 4-6 6-6 12a6 6 0 0 0 12 0c0-6-4-8-6-12z"/>
+                  <path d="M14 20c0-2 1-3 2-4 1 1 2 2 2 4"/>
+                </svg>
+              </div>
+              <div class="timeline-time">09:00 - 09:18</div>
+              <h3>净手 · 点香</h3>
+              <p>净手焚香，静心凝神，以虔诚之心迎接盛典开幕</p>
+            </div>
+          </div>
+          <div class="timeline-item anim-item" data-delay="250">
+            <div class="timeline-dot">
+              <div class="dot-inner"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="4" y="8" width="24" height="16" rx="2"/>
+                  <line x1="4" y1="14" x2="28" y2="14"/>
+                  <circle cx="16" cy="20" r="2"/>
+                </svg>
+              </div>
+              <div class="timeline-time">09:18 - 09:25</div>
+              <h3>揭牌 · 主持</h3>
+              <p>隆重的揭牌仪式，正式开启韫川科技新篇章</p>
+            </div>
+          </div>
+          <div class="timeline-item anim-item" data-delay="400">
+            <div class="timeline-dot">
+              <div class="dot-inner"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M8 28V12l8-8 8 8v16"/>
+                  <path d="M12 28v-8h8v8"/>
+                  <line x1="4" y1="28" x2="28" y2="28"/>
+                </svg>
+              </div>
+              <div class="timeline-time">09:25 之后</div>
+              <h3>茶歇交流与业务体验</h3>
+              <p>品茗论道，深入交流，亲身体验全域数字化运营方案</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 第六屏 · 尾页 ====== -->
+    <section class="section footer-section" id="footer">
+      <div class="section-inner">
+        <!-- LOGO -->
+        <div class="footer-logo-wrap anim-item">
+          <img src="public/logo.png" alt="韫川科技" class="footer-logo">
+        </div>
+        <p class="footer-slogan anim-item" data-delay="100">驭势而进 · 全域共生</p>
+        <div class="footer-divider anim-item" data-delay="150"></div>
+        <!-- 联系信息 -->
+        <div class="footer-info anim-item" data-delay="200">
+          <div class="info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <p>深圳市前海深港合作区南山街道听海大道5059号<br>前海鸿荣源中心A座1001E</p>
+          </div>
+          <div class="info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <a href="tel:15815591314" class="phone-link">15815591314</a>
+          </div>
+        </div>
+        <!-- 导航按钮 -->
+        <div class="footer-actions anim-item" data-delay="300">
+          <a href="https://uri.amap.com/navigation?to=113.945417,22.521083,%E5%89%8D%E6%B5%B7%E9%B8%BF%E8%8D%A3%E6%BA%90%E4%B8%AD%E5%BF%83A%E5%BA%A7&mode=car&coordinate=gaode" target="_blank" class="nav-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <span>导航前往</span>
+          </a>
+          <a href="tel:15815591314" class="call-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>致电咨询</span>
+          </a>
+        </div>
+        <!-- 恭候莅临印章 -->
+        <div class="footer-stamp anim-item" data-delay="400">
+          <div class="stamp-circle-lg">
+            <span>恭</span><span>候</span><span>莅</span><span>临</span>
+          </div>
+        </div>
+        <p class="footer-copy">© 2026 深圳韫川信息科技有限公司 版权所有</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>
