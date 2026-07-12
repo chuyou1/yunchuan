@@ -195,6 +195,7 @@
     var isPlaying = false;
     var isMutedAutoplay = false;
     var hasInteracted = false;
+    var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
 
     function setPlayingState(state) {
       isPlaying = state;
@@ -226,20 +227,22 @@
       }
     }
 
-    function onFirstInteraction() {
-      if (hasInteracted) return;
+    function handleInteraction() {
+      if (hasInteracted && !isWeChat) return;
       hasInteracted = true;
       if (isPlaying && isMutedAutoplay) {
         unmuteAndPlay();
       } else if (!isPlaying) {
         unmuteAndPlay();
         setPlayingState(true);
+      } else if (isWeChat) {
+        audio.play().catch(function () {});
       }
     }
 
-    var interactionEvents = ['click', 'touchstart', 'scroll', 'keydown', 'mousedown'];
+    var interactionEvents = ['touchstart', 'click'];
     interactionEvents.forEach(function (evt) {
-      document.addEventListener(evt, onFirstInteraction, { once: true, passive: true, capture: true });
+      document.addEventListener(evt, handleInteraction, { passive: true, capture: true });
     });
 
     btn.addEventListener('click', function (e) {

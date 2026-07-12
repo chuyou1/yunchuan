@@ -299,8 +299,10 @@ body {
 }
 
 .hero-logo {
-  width: 200px;
-  height: 200px;
+  width: 58vw;
+  height: 58vw;
+  max-width: 220px;
+  max-height: 220px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
   animation: heroLogoFloat 4s ease-in-out infinite;
@@ -823,8 +825,10 @@ body {
 }
 
 .footer-logo {
-  width: 160px;
-  height: 160px;
+  width: 48vw;
+  height: 48vw;
+  max-width: 200px;
+  max-height: 200px;
   object-fit: contain;
   opacity: 0.8;
 }
@@ -968,11 +972,6 @@ body {
     letter-spacing: 2px;
   }
 
-  .hero-logo {
-    width: 140px;
-    height: 140px;
-  }
-
   .hero-subtitle {
     font-size: 13px;
     letter-spacing: 1px;
@@ -1034,11 +1033,6 @@ body {
     font-size: 34px;
   }
 
-  .hero-logo {
-    width: 180px;
-    height: 180px;
-  }
-
   .section-title {
     font-size: 26px;
   }
@@ -1056,11 +1050,6 @@ body {
 @media (min-width: 481px) and (max-width: 767px) {
   .title-main {
     font-size: 40px;
-  }
-
-  .hero-logo {
-    width: 200px;
-    height: 200px;
   }
 
   .section-title {
@@ -1081,11 +1070,6 @@ body {
 
   .title-main {
     font-size: 44px;
-  }
-
-  .hero-logo {
-    width: 220px;
-    height: 220px;
   }
 
   .section-title {
@@ -1120,11 +1104,6 @@ body {
   .section-title {
     font-size: 20px;
     letter-spacing: 1px;
-  }
-
-  .hero-logo {
-    width: 100px;
-    height: 100px;
   }
 
   .section-inner {
