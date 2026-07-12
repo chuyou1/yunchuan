@@ -1,6 +1,6 @@
 /**
  * 韫川科技 · 开业盛典H5邀请函
- * 交互与动效 - 浅色明亮主题 + 分层懒加载动画
+ * 交互与动效
  */
 
 (function () {
@@ -29,9 +29,9 @@
   }
 
   function animateHero() {
-    var items = document.querySelectorAll('.hero-section .lazy-animate');
-    items.forEach(function (item, index) {
-      var delay = parseInt(item.getAttribute('data-delay') || String(index * 200), 10);
+    var items = document.querySelectorAll('.hero-section .anim-item');
+    items.forEach(function (item) {
+      var delay = parseInt(item.getAttribute('data-delay') || '0', 10);
       setTimeout(function () {
         item.classList.add('visible');
       }, delay);
@@ -39,99 +39,43 @@
   }
 
   /* ========================================
-     2. 滚动触发懒加载动画 (IntersectionObserver)
+     2. 滚动触发动画 (IntersectionObserver)
      ======================================== */
-  function initLazyAnimations() {
-    // 方案一：主 Obser 观察模块整体进入视口
-    var sectionOptions = {
+  function initScrollAnimations() {
+    var observerOptions = {
       root: null,
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.08
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.15
     };
 
-    // 子元素动画 - 延迟触发
-    var elementOptions = {
-      root: null,
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0.1
-    };
-
-    // 子元素动画观察器
-    var elementObserver = new IntersectionObserver(function (entries) {
+    var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           var el = entry.target;
           var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
 
+          // 文化屏的特殊处理已在CSS中定义
           setTimeout(function () {
             el.classList.add('visible');
           }, delay);
 
-          elementObserver.unobserve(el);
+          observer.unobserve(el);
         }
       });
-    }, elementOptions);
+    }, observerOptions);
 
-    // 主模块动画观察器 - 为整个 section 添加类后触发子元素
-    var sectionObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var section = entry.target;
-          section.classList.add('section-visible');
-
-          // 模块内所有带 lazy-animate 的元素依次动画
-          var animatedItems = section.querySelectorAll('.lazy-animate:not(.visible)');
-          animatedItems.forEach(function (el, index) {
-            var delay = parseInt(el.getAttribute('data-delay') || String(index * 120), 10);
-            setTimeout(function () {
-              el.classList.add('visible');
-            }, delay);
-          });
-
-          sectionObserver.unobserve(section);
-        }
-      });
-    }, sectionOptions);
-
-    // 观察所有模块
-    var sections = document.querySelectorAll('.section');
+    // 观察所有非首屏的动画元素
+    var sections = document.querySelectorAll('.section:not(.hero-section)');
     sections.forEach(function (section) {
-      sectionObserver.observe(section);
+      var items = section.querySelectorAll('.anim-item');
+      items.forEach(function (item) {
+        observer.observe(item);
+      });
     });
-
-    // 补充：对首屏元素也执行一次动画（兼容加载器未触发的情况）
-    var heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-      var heroItems = heroSection.querySelectorAll('.lazy-animate');
-      heroItems.forEach(function (el, index) {
-        var delay = parseInt(el.getAttribute('data-delay') || String(index * 200), 10);
-        setTimeout(function () {
-          el.classList.add('visible');
-        }, 2000 + delay); // 在加载动画完成后开始
-      });
-    }
-
-    // 兜底：如果元素已经在视口中，直接触发
-    if ('IntersectionObserver' in window) {
-      document.querySelectorAll('.lazy-animate:not(.visible)').forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-          setTimeout(function () {
-            el.classList.add('visible');
-          }, delay);
-        }
-      });
-    } else {
-      // 旧浏览器不支持 IntersectionObserver 时，直接显示所有内容
-      document.querySelectorAll('.lazy-animate').forEach(function (el) {
-        el.classList.add('visible');
-      });
-    }
   }
 
   /* ========================================
-     3. 粒子背景画布 - 浅色主题
+     3. 水纹背景画布
      ======================================== */
   function initWaterCanvas() {
     var canvas = document.getElementById('water-canvas');
@@ -140,7 +84,7 @@
     var ctx = canvas.getContext('2d');
     var width, height;
     var particles = [];
-    var PARTICLE_COUNT = 45;
+    var PARTICLE_COUNT = 50;
     var animId;
 
     function resize() {
@@ -152,10 +96,10 @@
       return {
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 1.5 + 0.8,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.15 - 0.08,
-        alpha: Math.random() * 0.45 + 0.1,
+        radius: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.2 - 0.1,
+        alpha: Math.random() * 0.5 + 0.1,
         alphaDir: Math.random() > 0.5 ? 1 : -1,
         color: Math.random() > 0.6 ? 'gold' : 'red'
       };
@@ -172,29 +116,34 @@
       ctx.clearRect(0, 0, width, height);
 
       particles.forEach(function (p) {
+        // 更新位置
         p.x += p.vx;
         p.y += p.vy;
 
-        p.alpha += p.alphaDir * 0.0025;
-        if (p.alpha > 0.5) p.alphaDir = -1;
-        if (p.alpha < 0.08) p.alphaDir = 1;
+        // 闪烁
+        p.alpha += p.alphaDir * 0.003;
+        if (p.alpha > 0.6) p.alphaDir = -1;
+        if (p.alpha < 0.05) p.alphaDir = 1;
 
+        // 边界循环
         if (p.x < -10) p.x = width + 10;
         if (p.x > width + 10) p.x = -10;
         if (p.y < -10) p.y = height + 10;
         if (p.y > height + 10) p.y = -10;
 
+        // 绘制
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
         if (p.color === 'gold') {
           ctx.fillStyle = 'rgba(212, 175, 55, ' + p.alpha + ')';
         } else {
-          ctx.fillStyle = 'rgba(196, 30, 58, ' + (p.alpha * 0.55) + ')';
+          ctx.fillStyle = 'rgba(196, 30, 58, ' + (p.alpha * 0.6) + ')';
         }
         ctx.fill();
       });
 
+      // 连线效果（距离近的粒子之间）
       for (var i = 0; i < particles.length; i++) {
         for (var j = i + 1; j < particles.length; j++) {
           var dx = particles[i].x - particles[j].x;
@@ -202,12 +151,12 @@
           var dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 120) {
-            var lineAlpha = (1 - dist / 120) * 0.06;
+            var lineAlpha = (1 - dist / 120) * 0.08;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = 'rgba(201, 162, 61, ' + lineAlpha + ')';
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = 'rgba(212, 175, 55, ' + lineAlpha + ')';
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
@@ -225,6 +174,7 @@
       initParticles();
     });
 
+    // 页面不可见时暂停动画
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
         cancelAnimationFrame(animId);
@@ -235,98 +185,118 @@
   }
 
   /* ========================================
-     4. 音乐按钮 - 真实背景音乐播放
+     4. 音乐按钮
      ======================================== */
   function initMusicButton() {
     var btn = document.getElementById('music-btn');
-    if (!btn) return;
-
     var audio = document.getElementById('bg-music');
+    if (!btn || !audio) return;
+
     var isPlaying = false;
-    var autoPlayAttempted = false;
 
-    if (audio) {
-      audio.loop = true;
+    // 尝试自动播放
+    function tryAutoPlay() {
       audio.volume = 0.5;
-      audio.setAttribute('preload', 'auto');
-
-      var tryAutoPlay = function () {
-        if (autoPlayAttempted) return;
-        autoPlayAttempted = true;
-        var playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.then(function () {
-            isPlaying = true;
-            btn.classList.add('playing');
-          }).catch(function () {
-            isPlaying = false;
-          });
-        }
-      };
-
-      window.addEventListener('load', tryAutoPlay);
-
-      var autoPlayOnInteraction = function () {
-        if (!isPlaying && !audio.paused) {
+      var playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function () {
           isPlaying = true;
           btn.classList.add('playing');
-          return;
-        }
-
-        if (!isPlaying && !autoPlayAttempted) {
-          var p = audio.play();
-          if (p !== undefined) {
-            p.then(function () {
+        }).catch(function () {
+          // 浏览器阻止自动播放，等待用户交互
+          isPlaying = false;
+          btn.classList.remove('playing');
+          // 监听首次用户交互后自动播放
+          var events = ['touchstart', 'click', 'scroll'];
+          function onFirstInteraction() {
+            audio.play().then(function () {
               isPlaying = true;
               btn.classList.add('playing');
             }).catch(function () {});
+            events.forEach(function (evt) {
+              document.removeEventListener(evt, onFirstInteraction);
+            });
           }
-        }
-
-        document.removeEventListener('click', autoPlayOnInteraction);
-        document.removeEventListener('touchstart', autoPlayOnInteraction);
-      };
-
-      document.addEventListener('click', autoPlayOnInteraction);
-      document.addEventListener('touchstart', autoPlayOnInteraction);
+          events.forEach(function (evt) {
+            document.addEventListener(evt, onFirstInteraction, { once: true, passive: true });
+          });
+        });
+      }
     }
 
+    // 点击切换
     btn.addEventListener('click', function () {
-      if (!audio) {
-        isPlaying = !isPlaying;
-        btn.classList.toggle('playing', isPlaying);
-        return;
-      }
-
       if (isPlaying) {
         audio.pause();
         isPlaying = false;
         btn.classList.remove('playing');
       } else {
-        var p = audio.play();
-        if (p !== undefined) {
-          p.then(function () {
-            isPlaying = true;
-            btn.classList.add('playing');
-          }).catch(function () {
-            isPlaying = false;
-            btn.classList.remove('playing');
-          });
-        }
+        audio.play().then(function () {
+          isPlaying = true;
+          btn.classList.add('playing');
+        }).catch(function () {});
       }
+    });
+
+    // 页面加载后尝试自动播放
+    window.addEventListener('load', function () {
+      setTimeout(tryAutoPlay, 2000);
     });
   }
 
   /* ========================================
-     5. 初始化
+     5. 文化屏特殊动效检测
+     ======================================== */
+  function initCultureAnimation() {
+    var cultureSection = document.getElementById('culture');
+    if (!cultureSection) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          // 触发韫/川双栏滑入
+          var yun = cultureSection.querySelector('.culture-yun');
+          var chuan = cultureSection.querySelector('.culture-chuan');
+
+          if (yun) {
+            setTimeout(function () { yun.classList.add('visible'); }, 300);
+          }
+          if (chuan) {
+            setTimeout(function () { chuan.classList.add('visible'); }, 500);
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(cultureSection);
+  }
+
+  /* ========================================
+     6. 页面可见性优化
+     ======================================== */
+  function initVisibilityOptimization() {
+    // 在微信中优化体验
+    document.addEventListener('WeixinJSBridgeReady', function () {
+      // 微信JSBridge就绪
+      document.body.classList.add('wechat');
+    });
+  }
+
+  /* ========================================
+     7. 初始化
      ======================================== */
   function init() {
     initLoader();
-    initLazyAnimations();
+    initScrollAnimations();
     initWaterCanvas();
     initMusicButton();
+    initCultureAnimation();
+    initVisibilityOptimization();
   }
 
+  // DOM Ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
