@@ -193,54 +193,79 @@
     if (!btn || !audio) return;
 
     var isPlaying = false;
+    var isMutedAutoplay = false;
+    var hasInteracted = false;
 
-    // 尝试自动播放
-    function tryAutoPlay() {
+    function setPlayingState(state) {
+      isPlaying = state;
+      if (state) {
+        btn.classList.add('playing');
+      } else {
+        btn.classList.remove('playing');
+      }
+    }
+
+    function unmuteAndPlay() {
+      audio.muted = false;
       audio.volume = 0.5;
+      isMutedAutoplay = false;
+      audio.play().catch(function () {});
+    }
+
+    function tryAutoPlay() {
+      audio.muted = true;
       var playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.then(function () {
-          isPlaying = true;
-          btn.classList.add('playing');
+          setPlayingState(true);
+          isMutedAutoplay = true;
         }).catch(function () {
-          // 浏览器阻止自动播放，等待用户交互
-          isPlaying = false;
-          btn.classList.remove('playing');
-          // 监听首次用户交互后自动播放
-          var events = ['touchstart', 'click', 'scroll'];
-          function onFirstInteraction() {
-            audio.play().then(function () {
-              isPlaying = true;
-              btn.classList.add('playing');
-            }).catch(function () {});
-            events.forEach(function (evt) {
-              document.removeEventListener(evt, onFirstInteraction);
-            });
-          }
-          events.forEach(function (evt) {
-            document.addEventListener(evt, onFirstInteraction, { once: true, passive: true });
-          });
+          setPlayingState(false);
+          isMutedAutoplay = false;
         });
       }
     }
 
-    // 点击切换
-    btn.addEventListener('click', function () {
+    function onFirstInteraction() {
+      if (hasInteracted) return;
+      hasInteracted = true;
+      if (isPlaying && isMutedAutoplay) {
+        unmuteAndPlay();
+      } else if (!isPlaying) {
+        unmuteAndPlay();
+        setPlayingState(true);
+      }
+    }
+
+    var interactionEvents = ['click', 'touchstart', 'scroll', 'keydown', 'mousedown'];
+    interactionEvents.forEach(function (evt) {
+      document.addEventListener(evt, onFirstInteraction, { once: true, passive: true, capture: true });
+    });
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
       if (isPlaying) {
         audio.pause();
-        isPlaying = false;
-        btn.classList.remove('playing');
+        setPlayingState(false);
       } else {
-        audio.play().then(function () {
-          isPlaying = true;
-          btn.classList.add('playing');
-        }).catch(function () {});
+        unmuteAndPlay();
+        setPlayingState(true);
       }
     });
 
-    // 页面加载后尝试自动播放
+    document.addEventListener('WeixinJSBridgeReady', function () {
+      unmuteAndPlay();
+      setPlayingState(true);
+    });
+
+    audio.addEventListener('ended', function () {
+      if (audio.loop) {
+        audio.play().catch(function () {});
+      }
+    });
+
     window.addEventListener('load', function () {
-      setTimeout(tryAutoPlay, 2000);
+      tryAutoPlay();
     });
   }
 

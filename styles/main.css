@@ -299,8 +299,8 @@ body {
 }
 
 .hero-logo {
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
   animation: heroLogoFloat 4s ease-in-out infinite;
@@ -823,8 +823,8 @@ body {
 }
 
 .footer-logo {
-  width: 80px;
-  height: 80px;
+  width: 160px;
+  height: 160px;
   object-fit: contain;
   opacity: 0.8;
 }
@@ -931,14 +931,15 @@ body {
   height: 72px;
   border: 2px solid var(--red);
   border-radius: 50%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   background: rgba(196, 30, 58, 0.06);
   transform: rotate(-10deg);
   padding: 8px;
-  gap: 2px;
+  gap: 0;
 }
 
 .stamp-circle-lg span {
@@ -946,9 +947,8 @@ body {
   font-size: 15px;
   color: var(--red);
   font-weight: 700;
-  width: 16px;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .footer-copy {
@@ -969,8 +969,8 @@ body {
   }
 
   .hero-logo {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
   }
 
   .hero-subtitle {
@@ -1035,8 +1035,8 @@ body {
   }
 
   .hero-logo {
-    width: 130px;
-    height: 130px;
+    width: 180px;
+    height: 180px;
   }
 
   .section-title {
@@ -1059,8 +1059,8 @@ body {
   }
 
   .hero-logo {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
 
   .section-title {
@@ -1084,8 +1084,8 @@ body {
   }
 
   .hero-logo {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
   }
 
   .section-title {
@@ -1123,8 +1123,8 @@ body {
   }
 
   .hero-logo {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
 
   .section-inner {
