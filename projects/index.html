@@ -10,15 +10,20 @@
   <meta property="og:image" content="public/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.cn">
   <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
-  <link href="https://fonts.googleapis.cn/css2?family=ZCOOL+QingKe+HuangYou&family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.cn/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
   <!-- 水纹背景画布 -->
   <canvas id="water-canvas"></canvas>
 
+  <!-- 背景音乐 -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="yunchuanmusic.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- 音乐控制按钮 -->
-  <button class="music-btn lazy-animate anim-zoom-in" id="music-btn" data-delay="2600" aria-label="背景音乐开关">
+  <button class="music-btn playing" id="music-btn" aria-label="背景音乐开关">
     <div class="music-icon">
       <span class="music-bar"></span>
       <span class="music-bar"></span>
@@ -26,12 +31,6 @@
       <span class="music-bar"></span>
     </div>
   </button>
-
-  <!-- 背景音乐 -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="public/opening.mp3" type="audio/mpeg">
-    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946bc15e97.mp3?filename=energetic-indie-rock-11216.mp3" type="audio/mpeg">
-  </audio>
 
   <!-- 加载动画 -->
   <div id="loader" class="loader">
@@ -44,186 +43,150 @@
   <!-- 主内容 -->
   <main id="main-content" class="main-content hidden">
 
-    <!-- ========== 第一屏 · 首屏 LOGO ========== -->
+    <!-- ====== 第一屏 · 首屏 ====== -->
     <section class="section hero-section" id="hero">
-      <div class="hero-glow lazy-animate anim-fade-in" data-delay="2500"></div>
+      <!-- 红金光效 -->
+      <div class="hero-glow"></div>
       <div class="hero-content">
-
         <!-- LOGO -->
-        <div class="hero-logo-wrap lazy-animate anim-zoom-in" data-delay="2200">
+        <div class="hero-logo-wrap anim-item" data-delay="300">
           <img src="public/logo.png" alt="韫川科技" class="hero-logo">
           <div class="logo-gold-line"></div>
         </div>
-
-        <!-- 主标题 - 两行豪放排版 -->
-        <h1 class="hero-title lazy-animate anim-fade-up" data-delay="2600">
-          <span class="title-line">驭势而进</span>
-          <span class="title-divider">✦</span>
-          <span class="title-line">全域共生</span>
+        <!-- 主标题 -->
+        <h1 class="hero-title anim-item" data-delay="600">
+          <span class="title-main">驭势而进 · 全域共生</span>
         </h1>
-
         <!-- 副标题 -->
-        <p class="hero-subtitle lazy-animate anim-fade-up" data-delay="2900">
-          深圳韫川信息科技有限公司开业盛典
-        </p>
-
+        <p class="hero-subtitle anim-item" data-delay="900">深圳韫川信息科技有限公司开业盛典</p>
         <!-- 时间地址 -->
-        <div class="hero-info lazy-animate anim-fade-up" data-delay="3100">
+        <div class="hero-info anim-item" data-delay="1200">
           <p class="hero-datetime">2026年7月16日 09:18</p>
           <p class="hero-address">深圳市前海深港合作区南山街道听海大道5059号<br>前海鸿荣源中心A座1001E</p>
         </div>
       </div>
-
       <!-- 右下角印章 -->
-      <div class="hero-stamp lazy-animate anim-zoom-in" data-delay="3400">
+      <div class="hero-stamp anim-item" data-delay="1500">
         <div class="stamp-box">
           <span>诚</span><span>挚</span><span>邀</span><span>请</span>
         </div>
       </div>
-
       <!-- 滚动提示 -->
-      <div class="scroll-hint lazy-animate anim-fade-in" data-delay="3800">
+      <div class="scroll-hint anim-item" data-delay="1800">
         <div class="scroll-arrow"></div>
       </div>
     </section>
 
-    <!-- ========== 第二屏 · 企业介绍 ========== -->
+    <!-- ====== 第二屏 · 企业介绍 ====== -->
     <section class="section about-section" id="about">
       <div class="section-inner">
-
         <!-- 栏目标题 -->
-        <div class="section-header lazy-animate anim-fade-up">
-          <span class="section-tag">About Us</span>
+        <div class="section-header anim-item">
+          <span class="section-tag">About US</span>
           <h2 class="section-title">企业介绍</h2>
-          <div class="header-line lazy-animate anim-reveal anim-reveal-center" data-delay="300"></div>
+          <div class="header-line"></div>
         </div>
-
         <!-- 引语 -->
-        <p class="about-quote lazy-animate anim-fade-up" data-delay="200">
-          驭势而进 ✦ 全域共生
-        </p>
-
+        <p class="about-quote anim-item" data-delay="100">驭势而进 · 全域共生</p>
         <!-- 左侧金线 -->
-        <div class="about-gold-bar lazy-animate anim-reveal" data-delay="400"></div>
-
+        <div class="about-gold-bar"></div>
         <!-- 正文 -->
         <div class="about-body">
-          <p class="lazy-animate anim-fade-up" data-delay="300">
+          <p class="anim-item" data-delay="200">
             深圳韫川信息科技有限公司，本地生活 AI 全域数字化服务商，持有抖音、支付宝、微信三大平台官方资质，助力实体商家数字化经营。
           </p>
-          <p class="lazy-animate anim-fade-up" data-delay="500">
+          <p class="anim-item" data-delay="350">
             打通三端流量运营链路，构建公域引流至私域复购完整商业闭环，主营两大核心业务：视频号 POI 团购搭建运营、全平台全域代运营托管。
           </p>
-          <p class="lazy-animate anim-fade-up" data-delay="700">
+          <p class="anim-item" data-delay="500">
             服务千余家实体商户，单月最高 0.3 亿 GMV，覆盖餐饮、美业、文旅、商超全赛道，配套 AI 营销、门店小程序、会员裂变全套落地工具。
           </p>
         </div>
-
         <!-- 右侧水墨山川装饰 -->
-        <div class="about-ink-mountain lazy-animate anim-fade-in" data-delay="500"></div>
+        <div class="about-ink-mountain"></div>
       </div>
     </section>
 
-    <!-- ========== 第三屏 · 韫川文化 ========== -->
+    <!-- ====== 第三屏 · 韫川文化 ====== -->
     <section class="section culture-section" id="culture">
       <div class="section-inner">
-
         <!-- 栏目标题 -->
-        <div class="section-header lazy-animate anim-fade-up">
+        <div class="section-header anim-item">
           <h2 class="section-title">韫川之名</h2>
-          <p class="section-subtitle lazy-animate anim-fade-up" data-delay="200">藏器待时，川流不息</p>
-          <div class="header-line lazy-animate anim-reveal anim-reveal-center" data-delay="400"></div>
+          <p class="section-subtitle">藏器待时，川流不息</p>
+          <div class="header-line"></div>
         </div>
-
         <!-- 开篇总起 -->
-        <p class="culture-intro lazy-animate anim-fade-up" data-delay="300">
+        <p class="culture-intro anim-item" data-delay="100">
           "韫川"二字，藏东方智慧，蕴企业格局。韫为内藏，川为外展；一动一静，一收一放，是厚积薄发的经营之道，亦是奔腾不息的发展之势。
         </p>
-
         <!-- 韫/川 双栏 -->
         <div class="culture-columns">
-
-          <!-- 左侧：韫 -->
-          <div class="culture-col lazy-animate anim-fade-left" data-delay="200">
-            <div class="culture-char-wrap lazy-animate anim-slide-left-big" data-delay="350">
-              <span class="culture-char-brush">韫</span>
+          <div class="culture-col culture-yun anim-item" data-delay="300">
+            <div class="culture-char-wrap">
+              <span class="culture-char">韫</span>
               <div class="culture-seal">藏</div>
             </div>
-            <h3 class="lazy-animate anim-fade-up" data-delay="500">韫 · 藏</h3>
-            <p class="culture-source lazy-animate anim-fade-up" data-delay="650">取自《论语·子罕》"椟而藏"</p>
-            <p class="lazy-animate anim-fade-up" data-delay="800">
-              寓意厚积薄发、内敛沉淀，待时而动。以深厚积累为根基，于时机成熟时一展所长。
-            </p>
+            <h3>韫 · 藏</h3>
+            <p class="culture-source">取自《论语·子罕》"椟而藏"</p>
+            <p>寓意厚积薄发、内敛沉淀，待时而动。以深厚积累为根基，于时机成熟时一展所长。</p>
           </div>
-
-          <!-- 右侧：川 -->
-          <div class="culture-col lazy-animate anim-fade-right" data-delay="200">
-            <div class="culture-char-wrap lazy-animate anim-slide-right-big" data-delay="350">
-              <span class="culture-char-brush">川</span>
+          <div class="culture-col culture-chuan anim-item" data-delay="400">
+            <div class="culture-char-wrap">
+              <span class="culture-char">川</span>
               <div class="culture-seal">流</div>
             </div>
-            <h3 class="lazy-animate anim-fade-up" data-delay="500">川 · 流</h3>
-            <p class="culture-source lazy-animate anim-fade-up" data-delay="650">取江河奔涌之意</p>
-            <p class="lazy-animate anim-fade-up" data-delay="800">
-              象征汇聚众流、奔腾不息，生命力源远流长。以开放之姿纳百川，以进取之势向未来。
-            </p>
+            <h3>川 · 流</h3>
+            <p class="culture-source">取江河奔涌之意</p>
+            <p>象征汇聚众流、奔腾不息，生命力源远流长。以开放之姿纳百川，以进取之势向未来。</p>
           </div>
         </div>
-
         <!-- 底部五句总结 -->
-        <div class="culture-summary lazy-animate anim-fade-up" data-delay="600">
+        <div class="culture-summary anim-item" data-delay="600">
           <div class="summary-item"><span>动静平衡</span></div>
-          <div class="summary-dot">✦</div>
+          <div class="summary-dot">·</div>
           <div class="summary-item"><span>内外兼修</span></div>
-          <div class="summary-dot">✦</div>
+          <div class="summary-dot">·</div>
           <div class="summary-item"><span>时机智慧</span></div>
-          <div class="summary-dot">✦</div>
+          <div class="summary-dot">·</div>
           <div class="summary-item"><span>视野胸怀</span></div>
-          <div class="summary-dot">✦</div>
+          <div class="summary-dot">·</div>
           <div class="summary-item"><span>持续发展</span></div>
         </div>
       </div>
     </section>
 
-    <!-- ========== 第四屏 · 诚挚邀请 ========== -->
+    <!-- ====== 第四屏 · 诚挚邀请 ====== -->
     <section class="section invite-section" id="invite">
       <div class="section-inner">
-
         <!-- 栏目标题 -->
-        <div class="section-header lazy-animate anim-fade-up">
+        <div class="section-header anim-item">
           <span class="section-tag">Sincere Invitation</span>
           <h2 class="section-title">诚挚邀请</h2>
-          <div class="header-line lazy-animate anim-reveal anim-reveal-center" data-delay="300"></div>
+          <div class="header-line"></div>
         </div>
-
         <!-- 邀请卡 -->
-        <div class="invite-card lazy-animate anim-zoom-in" data-delay="200">
-
-          <!-- 金线边框装饰 -->
+        <div class="invite-card anim-item" data-delay="200">
+          <!-- 金线边框 -->
           <div class="card-border">
-            <span class="corner tl lazy-animate anim-fade-in" data-delay="500"></span>
-            <span class="corner tr lazy-animate anim-fade-in" data-delay="550"></span>
-            <span class="corner bl lazy-animate anim-fade-in" data-delay="600"></span>
-            <span class="corner br lazy-animate anim-fade-in" data-delay="650"></span>
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
           </div>
-
           <!-- 引语 -->
-          <p class="invite-quote lazy-animate anim-fade-up" data-delay="400">
-            驭势而进 ✦ 全域共生
-          </p>
-
+          <p class="invite-quote anim-item" data-delay="300">驭势而进 · 全域共生</p>
           <!-- 正文 -->
-          <div class="invite-body">
-            <p class="lazy-animate anim-fade-up" data-delay="500">
+          <div class="invite-body anim-item" data-delay="400">
+            <p>
               衷心感谢您一直以来的关注与支持！为共探本地生活 AI 数字化全新机遇、共享全域经营蓝海红利，诚邀您莅临我司开业盛典。
             </p>
-            <p class="lazy-animate anim-fade-up" data-delay="700">
+            <p>
               现场将深度拆解三平台数字化运营方案、分享合伙人共赢模式、交流实体商家落地实战经验，期待与您共启新程、合作共赢！
             </p>
           </div>
-
           <!-- 邀请函印章 -->
-          <div class="invite-stamp lazy-animate anim-zoom-in" data-delay="900">
+          <div class="invite-stamp anim-item" data-delay="600">
             <div class="stamp-circle">
               <span>邀</span>
               <span>请</span>
@@ -234,22 +197,18 @@
       </div>
     </section>
 
-    <!-- ========== 第五屏 · 开业仪程 ========== -->
+    <!-- ====== 第五屏 · 开业仪程 ====== -->
     <section class="section schedule-section" id="schedule">
       <div class="section-inner">
-
         <!-- 栏目标题 -->
-        <div class="section-header lazy-animate anim-fade-up">
+        <div class="section-header anim-item">
           <h2 class="section-title">开业仪程</h2>
-          <div class="header-line lazy-animate anim-reveal anim-reveal-center" data-delay="300"></div>
+          <div class="header-line"></div>
         </div>
-
         <!-- 时间轴 -->
         <div class="timeline">
-          <div class="timeline-line lazy-animate anim-reveal" data-delay="100"></div>
-
-          <!-- 仪式1 -->
-          <div class="timeline-item lazy-animate anim-fade-left" data-delay="100">
+          <div class="timeline-line"></div>
+          <div class="timeline-item anim-item" data-delay="100">
             <div class="timeline-dot">
               <div class="dot-inner"></div>
             </div>
@@ -262,89 +221,74 @@
               </div>
               <div class="timeline-time">09:00 - 09:18</div>
               <h3>净手 · 点香</h3>
-              <p>净手点香，凝心聚力，以诚挚之心共赴开业盛典</p>
+              <p>净手点香，凝心聚力，以诚挚之心共赴开业盛典，与各位业界来宾携手开启合作共创新篇章。</p>
             </div>
           </div>
-
-          <!-- 仪式2 -->
-          <div class="timeline-item lazy-animate anim-fade-right" data-delay="250">
+          <div class="timeline-item anim-item" data-delay="250">
             <div class="timeline-dot">
               <div class="dot-inner"></div>
             </div>
             <div class="timeline-card">
               <div class="timeline-icon">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="6" y="6" width="4" height="20"/>
-                  <rect x="10" y="4" width="16" height="8" rx="1"/>
-                  <path d="M14 12v14"/>
-                  <path d="M18 12v14"/>
-                  <circle cx="26" cy="16" r="2" fill="currentColor"/>
+                  <rect x="4" y="8" width="24" height="16" rx="2"/>
+                  <line x1="4" y1="14" x2="28" y2="14"/>
+                  <circle cx="16" cy="20" r="2"/>
                 </svg>
               </div>
               <div class="timeline-time">09:18 - 09:25</div>
               <h3>揭鼎揭牌 · 盛典启幕</h3>
-              <p>同步完成揭鼎礼与品牌揭牌仪式，正式拉开韫川科技发展新序幕，与诸位行业同仁共启事业新征程</p>
+              <p>同步完成揭鼎礼与品牌揭牌仪式，正式拉开韫川科技发展新序幕，与诸位行业同仁共启事业新征程。</p>
             </div>
           </div>
-
-          <!-- 仪式3 -->
-          <div class="timeline-item lazy-animate anim-fade-left" data-delay="400">
+          <div class="timeline-item anim-item" data-delay="400">
             <div class="timeline-dot">
               <div class="dot-inner"></div>
             </div>
             <div class="timeline-card">
               <div class="timeline-icon">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M6 14c0-4 4-6 10-6s10 2 10 6v4H6v-4z"/>
-                  <path d="M6 18v6c0 2 2 4 6 4h8c4 0 6-2 6-4v-6"/>
-                  <path d="M10 22l4-4 4 4 4-4"/>
+                  <path d="M8 28V12l8-8 8 8v16"/>
+                  <path d="M12 28v-8h8v8"/>
+                  <line x1="4" y1="28" x2="28" y2="28"/>
                 </svg>
               </div>
               <div class="timeline-time">09:25 - 12:00</div>
-              <h3>茶歇交流 · 方案品鉴</h3>
-              <p>品茗论道，开展行业深度研讨，实地品鉴全域数字化运营落地方案，共商合作方向、共谋长远发展</p>
+              <h3>茶歇交流 & 方案品鉴</h3>
+              <p>品茗论道，开展行业深度研讨，实地品鉴全域数字化运营落地方案，共商合作方向、共谋长远发展。</p>
             </div>
           </div>
-
-          <!-- 仪式4 -->
-          <div class="timeline-item lazy-animate anim-fade-right" data-delay="550">
+          <div class="timeline-item anim-item" data-delay="550">
             <div class="timeline-dot">
               <div class="dot-inner"></div>
             </div>
             <div class="timeline-card">
               <div class="timeline-icon">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <circle cx="16" cy="12" r="4"/>
-                  <path d="M8 28c0-4 4-8 8-8s8 4 8 8"/>
-                  <path d="M4 28h24"/>
+                  <circle cx="16" cy="12" r="6"/>
+                  <path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/>
                 </svg>
               </div>
               <div class="timeline-time">12:00 之后</div>
               <h3>午宴欢聚 · 休闲文娱</h3>
-              <p>特设商务正餐款待诸位业界来宾，餐后配套休闲文娱活动，在轻松氛围中持续深化交流，聚力协同共创</p>
+              <p>特设商务正餐款待诸位业界来宾，餐后配套休闲文娱活动，在轻松氛围中持续深化交流，聚力协同共创。</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== 第六屏 · 尾页 ========== -->
+    <!-- ====== 第六屏 · 尾页 ====== -->
     <section class="section footer-section" id="footer">
       <div class="section-inner">
-
         <!-- LOGO -->
-        <div class="footer-logo-wrap lazy-animate anim-zoom-in">
+        <div class="footer-logo-wrap anim-item">
           <img src="public/logo.png" alt="韫川科技" class="footer-logo">
         </div>
-
-        <p class="footer-slogan lazy-animate anim-fade-up" data-delay="200">
-          驭势而进 ✦ 全域共生
-        </p>
-
-        <div class="footer-divider lazy-animate anim-reveal anim-reveal-center" data-delay="400"></div>
-
+        <p class="footer-slogan anim-item" data-delay="100">驭势而进 · 全域共生</p>
+        <div class="footer-divider anim-item" data-delay="150"></div>
         <!-- 联系信息 -->
-        <div class="footer-info lazy-animate anim-fade-up" data-delay="500">
+        <div class="footer-info anim-item" data-delay="200">
           <div class="info-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
@@ -359,9 +303,8 @@
             <a href="tel:15815591314" class="phone-link">15815591314</a>
           </div>
         </div>
-
         <!-- 导航按钮 -->
-        <div class="footer-actions lazy-animate anim-fade-up" data-delay="700">
+        <div class="footer-actions anim-item" data-delay="300">
           <a href="https://uri.amap.com/navigation?to=113.945417,22.521083,%E5%89%8D%E6%B5%B7%E9%B8%BF%E8%8D%A3%E6%BA%90%E4%B8%AD%E5%BF%83A%E5%BA%A7&mode=car&coordinate=gaode" target="_blank" class="nav-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
@@ -376,14 +319,12 @@
             <span>致电咨询</span>
           </a>
         </div>
-
         <!-- 恭候莅临印章 -->
-        <div class="footer-stamp lazy-animate anim-zoom-in" data-delay="900">
+        <div class="footer-stamp anim-item" data-delay="400">
           <div class="stamp-circle-lg">
             <span>恭</span><span>候</span><span>莅</span><span>临</span>
           </div>
         </div>
-
         <p class="footer-copy">© 2026 深圳韫川信息科技有限公司 版权所有</p>
       </div>
     </section>
